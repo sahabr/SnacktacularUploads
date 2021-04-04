@@ -10,6 +10,7 @@
 		2EA144772617BD0200577BB1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2EA144762617BD0200577BB1 /* GoogleService-Info.plist */; };
 		2EBBDCD0261A2CD900A60B93 /* Spot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBBDCCF261A2CD900A60B93 /* Spot.swift */; };
 		2EBBDCD6261A3E4D00A60B93 /* UIViewController+alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBBDCD5261A3E4D00A60B93 /* UIViewController+alert.swift */; };
+		2EBBDCF8261A434200A60B93 /* Spots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBBDCF7261A434200A60B93 /* Spots.swift */; };
 		2ECED90D2617915A005527C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECED90C2617915A005527C9 /* AppDelegate.swift */; };
 		2ECED90F2617915A005527C9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECED90E2617915A005527C9 /* SceneDelegate.swift */; };
 		2ECED9112617915A005527C9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECED9102617915A005527C9 /* LoginViewController.swift */; };
@@ -26,6 +27,7 @@
 		2EA144762617BD0200577BB1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		2EBBDCCF261A2CD900A60B93 /* Spot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spot.swift; sourceTree = "<group>"; };
 		2EBBDCD5261A3E4D00A60B93 /* UIViewController+alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+alert.swift"; sourceTree = "<group>"; };
+		2EBBDCF7261A434200A60B93 /* Spots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spots.swift; sourceTree = "<group>"; };
 		2ECED9092617915A005527C9 /* Snacktacular.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snacktacular.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2ECED90C2617915A005527C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2ECED90E2617915A005527C9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				2ECED90C2617915A005527C9 /* AppDelegate.swift */,
 				2ECED90E2617915A005527C9 /* SceneDelegate.swift */,
 				2EBBDCCF261A2CD900A60B93 /* Spot.swift */,
+				2EBBDCF7261A434200A60B93 /* Spots.swift */,
 				2ECED9102617915A005527C9 /* LoginViewController.swift */,
 				2EDF7C20261910B00005F869 /* SpotListViewController.swift */,
 				2EDF7C2726191B490005F869 /* SpotTableViewCell.swift */,
@@ -246,6 +249,7 @@
 				2ECED9112617915A005527C9 /* LoginViewController.swift in Sources */,
 				2ECED90D2617915A005527C9 /* AppDelegate.swift in Sources */,
 				2EDF7C2B2619245D0005F869 /* SpotDetailViewController.swift in Sources */,
+				2EBBDCF8261A434200A60B93 /* Spots.swift in Sources */,
 				2EDF7C2826191B490005F869 /* SpotTableViewCell.swift in Sources */,
 				2EBBDCD0261A2CD900A60B93 /* Spot.swift in Sources */,
 				2ECED90F2617915A005527C9 /* SceneDelegate.swift in Sources */,
