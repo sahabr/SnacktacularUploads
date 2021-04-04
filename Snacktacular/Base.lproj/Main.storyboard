@@ -277,7 +277,11 @@
                     </view>
                     <toolbarItems>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="tPf-Oh-daU"/>
-                        <barButtonItem title="Lookup Place" id="TtJ-U3-ZMK"/>
+                        <barButtonItem title="Lookup Place" id="TtJ-U3-ZMK">
+                            <connections>
+                                <action selector="lookupButtonPressed:" destination="fsm-rf-aiX" id="CdA-FT-947"/>
+                            </connections>
+                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="ZxS-RB-vrO">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Puz-ln-sn0">
