@@ -285,6 +285,11 @@
                                 <action selector="cancelButtonPressed:" destination="fsm-rf-aiX" id="wwJ-O0-sF4"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="gYW-Ga-A2Z">
+                            <connections>
+                                <action selector="saveButtonPressed:" destination="fsm-rf-aiX" id="cbl-py-MbF"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
