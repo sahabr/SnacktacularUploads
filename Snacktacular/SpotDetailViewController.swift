@@ -19,7 +19,7 @@ class SpotDetailViewController: UIViewController {
     
     var spot: Spot!
     
-    let regionDistance: CLLocation = 750.0
+    let regionDistance: CLLocationDegrees = 750.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +46,7 @@ class SpotDetailViewController: UIViewController {
     func updateUserInterface(){
         nameTextField.text = spot.name
         addressTextField.text = spot.address
+        updateMap()
     }
     
     func updateFromInterface(){
