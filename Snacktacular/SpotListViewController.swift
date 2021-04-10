@@ -23,11 +23,15 @@ class SpotListViewController: UIViewController {
         configureSegmentedControl()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         spots.loadData {
+            self.sortBasedOnSegmentPressed()
             self.tableView.reloadData()
+            
         }
+        
     }
     
     func configureSegmentedControl(){
@@ -47,7 +51,27 @@ class SpotListViewController: UIViewController {
             destination.spot = spots.spotArray[selectedIndexPath.row]
         }
     }
-
+    
+    func sortBasedOnSegmentPressed(){
+        switch sortSegmentedControl.selectedSegmentIndex {
+        case 0: //A-Z
+            spots.spotArray.sort(by: {$0.name < $1.name})
+        case 1: //closest
+            print("TODO")
+        case 2: //averageRating
+            print("TODO")
+        default:
+            print("Segmented Control Error")
+        }
+        tableView.reloadData()
+    }
+    
+    
+    @IBAction func sortSegmentPressed(_ sender: UISegmentedControl) {
+        sortBasedOnSegmentPressed()
+        
+    }
+    
 }
 
 extension SpotListViewController: UITableViewDelegate, UITableViewDataSource {
