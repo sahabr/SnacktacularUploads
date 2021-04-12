@@ -14,6 +14,8 @@ class SpotTableViewCell: UITableViewCell {
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var ratingLabel: UILabel!
     
+    
+    
     var currentLocation: CLLocation!
     var spot: Spot! {
         didSet {
