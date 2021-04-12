@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E0BE45526240BD400FFA80A /* ReviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0BE45426240BD400FFA80A /* ReviewTableViewController.swift */; };
 		2EA144772617BD0200577BB1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2EA144762617BD0200577BB1 /* GoogleService-Info.plist */; };
 		2EBBDCD0261A2CD900A60B93 /* Spot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBBDCCF261A2CD900A60B93 /* Spot.swift */; };
 		2EBBDCD6261A3E4D00A60B93 /* UIViewController+alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBBDCD5261A3E4D00A60B93 /* UIViewController+alert.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2E0BE45426240BD400FFA80A /* ReviewTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableViewController.swift; sourceTree = "<group>"; };
 		2EA144762617BD0200577BB1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		2EBBDCCF261A2CD900A60B93 /* Spot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spot.swift; sourceTree = "<group>"; };
 		2EBBDCD5261A3E4D00A60B93 /* UIViewController+alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+alert.swift"; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				2EDF7C20261910B00005F869 /* SpotListViewController.swift */,
 				2EDF7C2726191B490005F869 /* SpotTableViewCell.swift */,
 				2EDF7C2A2619245D0005F869 /* SpotDetailViewController.swift */,
+				2E0BE45426240BD400FFA80A /* ReviewTableViewController.swift */,
 				2EBBDCD5261A3E4D00A60B93 /* UIViewController+alert.swift */,
 				2EBBDD19261A52E300A60B93 /* APIKeys.swift */,
 				2ECED9122617915A005527C9 /* Main.storyboard */,
@@ -252,6 +255,7 @@
 				2ECED9112617915A005527C9 /* LoginViewController.swift in Sources */,
 				2ECED90D2617915A005527C9 /* AppDelegate.swift in Sources */,
 				2EDF7C2B2619245D0005F869 /* SpotDetailViewController.swift in Sources */,
+				2E0BE45526240BD400FFA80A /* ReviewTableViewController.swift in Sources */,
 				2EBBDCF8261A434200A60B93 /* Spots.swift in Sources */,
 				2EDF7C2826191B490005F869 /* SpotTableViewCell.swift in Sources */,
 				2EBBDD1A261A52E300A60B93 /* APIKeys.swift in Sources */,
