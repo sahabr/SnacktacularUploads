@@ -26,7 +26,7 @@ class SpotDetailViewController: UIViewController {
     
     var locationManager: CLLocationManager!
     
-    var reviews: [String] = ["Tasty", "Awful", "Tasty", "Awful", "Tasty", "Awful", "Tasty", "Awful", "Tasty", "Awful", "Tasty", "Awful"]
+    var reviews: Reviews!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +43,7 @@ class SpotDetailViewController: UIViewController {
             spot = Spot()
         }
         setupMapView()
+        reviews = Reviews()
         updateUserInterface()
     }
     
@@ -67,6 +68,23 @@ class SpotDetailViewController: UIViewController {
     func updateFromInterface(){
         spot.name = nameTextField.text!
         spot.address = addressTextField.text!
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        updateFromInterface()
+        switch segue.identifier ?? ""{
+        case "AddReview":
+            let navigationController = segue.destination as! UINavigationController
+            let destination = navigationController.viewControllers.first as! ReviewTableViewController
+            destination.spot = spot
+        case "ShowReview":
+            let destination = segue.destination as! ReviewTableViewController
+            let selectedIndexPath = tableView.indexPathForSelectedRow!
+            destination.review = reviews.reviewsArray[selectedIndexPath.row]
+            destination.spot = spot
+        default:
+            print("Couldn't find a case for segue identifier \(segue.identifier)")
+        }
     }
     
     func leaveViewController(){
@@ -231,7 +249,7 @@ extension SpotDetailViewController: CLLocationManagerDelegate {
 
 extension SpotDetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return reviews.count
+        return reviews.reviewsArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
