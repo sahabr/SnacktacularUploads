@@ -54,7 +54,7 @@ class Review {
     
     
     
-    func saveData(spot: Spot, complettion: @escaping (Bool)-> ()){
+    func saveData(spot: Spot, completion: @escaping (Bool)-> ()){
         let db = Firestore.firestore()
         
         let dataToSave: [String: Any] = self.dictionary
@@ -64,21 +64,21 @@ class Review {
             ref = db.collection("spots").document(spot.documentID).collection("reviews").addDocument(data: dataToSave) { (error) in
                 guard error == nil else{
                     print("Error: adding document \(error!.localizedDescription)")
-                    return complettion(false)
+                    return completion(false)
                 }
                 self.documentID = ref!.documentID
                 print("Added document: \(self.documentID) to \(spot.documentID)")
-                complettion(true)
+                completion(true)
             }
         } else{
             let ref = db.collection("spots").document(spot.documentID).collection("reviews").document(self.documentID)
             ref.setData(dataToSave) { (error) in
                 guard error == nil else{
                     print("Error: updating document \(error!.localizedDescription)")
-                    return complettion(false)
+                    return completion(false)
                 }
                 print("Updated document: \(self.documentID) to \(spot.documentID)")
-                complettion(true)
+                completion(true)
             }
         }
     }

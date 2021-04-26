@@ -70,11 +70,11 @@ class Spot: NSObject, MKAnnotation {
         self.init(name: name, address: address, coordinate: coordinate, averageRating: averageRating, numberOfReviews: numberOfReviews, postingUserID: postingUserID, documentID: "")
     }
     
-    func saveData(complettion: @escaping (Bool)-> ()){
+    func saveData(completion: @escaping (Bool)-> ()){
         let db = Firestore.firestore()
         guard let postingUserID = Auth.auth().currentUser?.uid else {
             print("ERROR: Could not save data because we don't have a valid postingUserID")
-            return complettion(false)
+            return completion(false)
         }
         self.postingUserID = postingUserID
         
@@ -85,21 +85,21 @@ class Spot: NSObject, MKAnnotation {
             ref = db.collection("spots").addDocument(data: dataToSave) { (error) in
                 guard error == nil else{
                     print("Error: adding document \(error!.localizedDescription)")
-                    return complettion(false)
+                    return completion(false)
                 }
                 self.documentID = ref!.documentID
                 print("Added document: \(self.documentID)")
-                complettion(true)
+                completion(true)
             }
         } else{
             let ref = db.collection("spots").document(self.documentID)
             ref.setData(dataToSave) { (error) in
                 guard error == nil else{
                     print("Error: updating document \(error!.localizedDescription)")
-                    return complettion(false)
+                    return completion(false)
                 }
                 print("Updated document: \(self.documentID)")
-                complettion(true)
+                completion(true)
             }
         }
     }

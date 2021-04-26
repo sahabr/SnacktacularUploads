@@ -15,13 +15,14 @@ class SpotDetailViewController: UIViewController {
     @IBOutlet weak var nameTextField: UITextField!    
     @IBOutlet weak var addressTextField: UITextField!
     @IBOutlet weak var ratingLabel: UILabel!
-    
     @IBOutlet weak var mapView: MKMapView!
-    
     @IBOutlet weak var tableView: UITableView!
-    
     @IBOutlet weak var cancelBarButton: UIBarButtonItem!
     @IBOutlet weak var saveBarButton: UIBarButtonItem!
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    
     var spot: Spot!
     var photo: Photo!
     
@@ -30,6 +31,7 @@ class SpotDetailViewController: UIViewController {
     var locationManager: CLLocationManager!
     
     var reviews: Reviews!
+    var photos: Photos!
     var imagePickerController = UIImagePickerController()
     
     override func viewDidLoad() {
@@ -41,6 +43,8 @@ class SpotDetailViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
+        collectionView.delegate = self
+        collectionView.dataSource = self
         imagePickerController.delegate = self
         
         getLocation()
@@ -55,6 +59,7 @@ class SpotDetailViewController: UIViewController {
         }
         setupMapView()
         reviews = Reviews()
+        photos = Photos()
         updateUserInterface()
     }
     
@@ -67,6 +72,10 @@ class SpotDetailViewController: UIViewController {
         
         reviews.loadData(spot: spot) {
             self.tableView.reloadData()
+        }
+        
+        photos.loadData(spot: spot) {
+            self.collectionView.reloadData()
         }
     }
     
@@ -123,6 +132,11 @@ class SpotDetailViewController: UIViewController {
             let destination = segue.destination as! PhotoViewController
 //            let selectedIndexPath = tableView.indexPathForSelectedRow!
 //            destination.review = reviews.reviewsArray[selectedIndexPath.row]
+            guard let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first else{
+                print("Error: couldn't get selected collectionView item")
+                return
+            }
+            destination.photo = photos.photoArray[selectedIndexPath.row]
             destination.spot = spot
         default:
             print("Couldn't find a case for segue identifier \(segue.identifier)")
@@ -356,8 +370,19 @@ extension SpotDetailViewController: UITableViewDelegate, UITableViewDataSource {
         cell.review = reviews.reviewsArray[indexPath.row]
         return cell
     }
+}
+
+extension SpotDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfRowsInSection section: Int) -> Int {
+        return photos.photoArray.count
+    }
     
-    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let photoCell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! SpotPhotoCollectionViewCell
+        photoCell.spot = spot
+        photoCell.photo = photos.photoArray[indexPath.row]
+        return photoCell
+    }
 }
 
 extension SpotDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{

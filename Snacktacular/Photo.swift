@@ -51,7 +51,7 @@ class Photo {
         self.init(image: UIImage(), description: description, photoUserID: photoUserID, photoUserEmail: photoUserEmail, date: date, photoURL: photoURL, documentID: "")
     }
     
-    func saveData(spot: Spot, complettion: @escaping (Bool)-> ()){
+    func saveData(spot: Spot, completion: @escaping (Bool)-> ()){
         let db = Firestore.firestore()
         let storage = Storage.storage()
         
@@ -59,7 +59,7 @@ class Photo {
             print("Error: COuld not convert photo.image to Data")
         }
         
-        let uploadMetaData = StorageMetaData()
+        let uploadMetaData = StorageMetadata()
         uploadMetaData.contentType = "image/jpeg"
         
         if documentID == ""{
@@ -71,8 +71,10 @@ class Photo {
         let uploadTask = storageRef.putData(photoData, metadata: uploadMetaData) { (metadata, error) in
             if let error = error {
                 print("Error: upload for ref \(uploadMetaData) failed. \(error.localizedDescription)")
+
             }
         }
+            
         
         uploadTask.observe(.success) { (snapshot) in
             print("Upload to Firebase Storage was successful")
@@ -80,12 +82,12 @@ class Photo {
             
             let ref = db.collection("spots").document(spot.documentID).collection("photos").document(self.documentID)
             ref.setData(dataToSave) { (error) in
-                guard error == nil else{
-                    print("Error: updating document \(error!.localizedDescription)")
-                    return complettion(false)
+                guard error == nil else {
+                    print("Error: updating document \(error?.localizedDescription)")
+                    return completion(false)
                 }
                 print("Updated document: \(self.documentID) to \(spot.documentID)")
-                complettion(true)
+                completion(true)
             }
             
         }
@@ -94,7 +96,25 @@ class Photo {
             if let error = snapshot.error {
                 print("Error: upload task for file \(self.documentID) failed in spot \(spot.documentID) with error \(error.localizedDescription)")
             }
-            complettion(false)
+            completion(false)
+        }
+    }
+    
+    func loadImage(spot: Spot, completion: @escaping (Bool) -> ()) {
+        guard spot.documentID != "" else {
+            print("Error: did not pass a valid spot into loadImage")
+            return
+        }
+        let storage = Storage.storage()
+        let storageRef = storage.reference().child(spot.documentID).child(documentID)
+        storageRef.getData(maxSize: 25 * 1024 * 1024) { (data, error) in
+            if let error = error {
+                print("Error: an error occured while reading data from file ref: \(storageRef) error = \(error.localizedDescription) ")
+                return completion(false)
+            } else {
+                self.image = UIImage(data: data!) ?? UIImage()
+                return completion(true)
+            }
         }
     }
 }
