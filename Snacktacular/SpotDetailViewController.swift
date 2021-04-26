@@ -20,6 +20,8 @@ class SpotDetailViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var cancelBarButton: UIBarButtonItem!
+    @IBOutlet weak var saveBarButton: UIBarButtonItem!
     var spot: Spot!
     
     let regionDistance: CLLocationDegrees = 750.0
@@ -41,6 +43,11 @@ class SpotDetailViewController: UIViewController {
 
         if spot == nil{
             spot = Spot()
+        }else{
+            disableTextEditing()
+            cancelBarButton.hide()
+            saveBarButton.hide()
+            navigationController?.setToolbarHidden(true, animated: true)
         }
         setupMapView()
         reviews = Reviews()
@@ -77,6 +84,15 @@ class SpotDetailViewController: UIViewController {
         spot.address = addressTextField.text!
     }
     
+    func disableTextEditing(){
+        nameTextField.isEnabled = false
+        addressTextField.isEnabled = false
+        nameTextField.backgroundColor = .clear
+        addressTextField.backgroundColor = .clear
+        nameTextField.borderStyle = .none
+        addressTextField.borderStyle = .none
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         updateFromInterface()
         switch segue.identifier ?? ""{
@@ -89,6 +105,15 @@ class SpotDetailViewController: UIViewController {
             let selectedIndexPath = tableView.indexPathForSelectedRow!
             destination.review = reviews.reviewsArray[selectedIndexPath.row]
             destination.spot = spot
+        case "AddPhoto":
+            let navigationController = segue.destination as! UINavigationController
+            let destination = navigationController.viewControllers.first as! PhotoViewController
+            destination.spot = spot
+        case "ShowPhoto":
+            let destination = segue.destination as! PhotoViewController
+//            let selectedIndexPath = tableView.indexPathForSelectedRow!
+//            destination.review = reviews.reviewsArray[selectedIndexPath.row]
+            destination.spot = spot
         default:
             print("Couldn't find a case for segue identifier \(segue.identifier)")
         }
@@ -98,6 +123,10 @@ class SpotDetailViewController: UIViewController {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let saveAction = UIAlertAction(title: "Save", style: .default) { (_) in
             self.spot.saveData { (success) in
+                self.saveBarButton.title = "Done"
+                self.cancelBarButton.hide()
+                self.navigationController?.setToolbarHidden(true, animated: true)
+                self.disableTextEditing()
                 self.performSegue(withIdentifier: segueIdentifier, sender: nil)
             }
         }
@@ -114,6 +143,16 @@ class SpotDetailViewController: UIViewController {
             dismiss(animated: true, completion: nil)
         }else{
             navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    
+    @IBAction func nameFieldChanged(_ sender: UITextField) {
+        let noSpaces = nameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        if noSpaces != "" {
+            saveBarButton.isEnabled = true
+        }else{
+            saveBarButton.isEnabled = false
         }
     }
     
@@ -149,6 +188,13 @@ class SpotDetailViewController: UIViewController {
         }
     }
     
+    @IBAction func photoButtonPressed(_ sender: UIButton) {
+        if spot.documentID == "" {
+            saveCancelAlert(title: "This Venue Has Not Been Saved", message: "You must save this venue before you can review it", segueIdentifier: "AddPhoto")
+        }else {
+            performSegue(withIdentifier: "AddPhoto", sender: nil)
+        }
+    }
     
 }
 
