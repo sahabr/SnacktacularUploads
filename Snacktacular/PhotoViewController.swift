@@ -6,6 +6,14 @@
 //
 
 import UIKit
+import Firebase
+
+private let dateFormatter: DateFormatter = {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateStyle = .medium
+    dateFormatter.timeStyle = .none
+    return dateFormatter
+}()
 
 class PhotoViewController: UIViewController {
 
@@ -13,7 +21,14 @@ class PhotoViewController: UIViewController {
     @IBOutlet weak var saveBarButton: UIBarButtonItem!
     @IBOutlet weak var cancelBarButton: UIBarButtonItem!
     
+    
+    @IBOutlet weak var postedByLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var descriptionTextView: UITextView!    
+    @IBOutlet weak var photoImageView: UIImageView!
+        
     var spot: Spot!
+    var photo: Photo!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +41,40 @@ class PhotoViewController: UIViewController {
             print("ERROR: no spot passed to PhotoViewController.swift")
             return
         }
+        
+        if photo == nil {
+            photo = Photo()
+        }
+        updateUserInterface()
+    }
+    
+    func updateUserInterface(){
+        postedByLabel.text = "by: \(photo.photoUserEmail)"
+        dateLabel.text = "on: \(dateFormatter.string(from: photo.date))"
+        descriptionTextView.text = photo.description
+        photoImageView.image = photo.image
+        
+        if photo.documentID == "" {
+            addBorderToEditableObjects()
+        }else {
+            if photo.photoUserID = Auth.auth().currentUser?.uid {
+                self.navigationItem.leftItemsSupplementBackButton = false
+                saveBarButton.title = "Update"
+                addBorderToEditableObjects()
+                self.navigationController?.setToolbarHidden(false, animated: true)
+            }else {
+                saveBarButton.hide()
+                cancelBarButton.hide()
+                postedByLabel.text = "Posted by: \(photo.photoUserEmail)"
+
+                descriptionTextView.isEditable = false
+                descriptionTextView.backgroundColor = .white
+            }
+        }
+    }
+    
+    func addBorderToEditableObjects(){
+        descriptionTextView.addBorder(width: 0.5, radius: 5.0, color: .black)
     }
     
     func leaveViewController(){
@@ -49,3 +98,34 @@ class PhotoViewController: UIViewController {
     }
     
 }
+
+extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            imageView.image = editedImage
+        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            imageView.image = originalImage
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+
+    }
+    
+    func accessPhotoLibrary() {
+        imagePickerController.sourceType = .photoLibrary
+        present(imagePickerController, animated: true, completion: nil)
+
+    }
+    
+    func accessCamera(){
+        if UIImagePickerController.isSourceTypeAvailable(.camera){
+            present(imagePickerController, animated: true, completion: nil)
+        }else{
+            showAlert(title: "Camera Not Available", message: "There is no camera available on this device.")
+        }
+    }
+}
+
