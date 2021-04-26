@@ -545,8 +545,8 @@
                                                         <constraint firstAttribute="height" constant="44" id="Ykb-mF-Fz4"/>
                                                     </constraints>
                                                 </view>
-                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="TiU-Hi-rfS">
-                                                    <rect key="frame" x="103" y="29" width="208" height="40"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="TiU-Hi-rfS">
+                                                    <rect key="frame" x="56" y="29" width="208" height="40"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eGX-Z0-T7m">
                                                             <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
@@ -637,6 +637,7 @@
                                                 <constraint firstItem="x08-lH-wsK" firstAttribute="leading" secondItem="2yV-LT-hmd" secondAttribute="leading" id="aID-x6-vha"/>
                                                 <constraint firstAttribute="trailing" secondItem="x08-lH-wsK" secondAttribute="trailing" id="ayt-oQ-HFC"/>
                                                 <constraint firstItem="TiU-Hi-rfS" firstAttribute="top" secondItem="x08-lH-wsK" secondAttribute="bottom" constant="5" id="mKt-4h-3zS"/>
+                                                <constraint firstItem="TiU-Hi-rfS" firstAttribute="centerX" secondItem="2yV-LT-hmd" secondAttribute="centerX" id="vIA-9B-ZPx"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -821,13 +822,13 @@
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="34" translatesAutoresizingMaskIntoConstraints="NO" id="KCy-NJ-zkT">
                                 <rect key="frame" x="8" y="52" width="304" height="14"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="By: Benedict Cumberbatch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MHe-AW-NOf">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="By: Benedict Cumberbatch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MHe-AW-NOf">
                                         <rect key="frame" x="0.0" y="0.0" width="168" height="14"/>
                                         <fontDescription key="fontDescription" type="italicSystem" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="On: Dec. 22, 2021" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dHR-NY-CFU">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On: Dec. 22, 2021" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dHR-NY-CFU">
                                         <rect key="frame" x="202" y="0.0" width="102" height="14"/>
                                         <fontDescription key="fontDescription" type="italicSystem" pointSize="12"/>
                                         <nil key="textColor"/>

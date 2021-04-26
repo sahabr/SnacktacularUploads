@@ -56,7 +56,7 @@ class Photo {
         let storage = Storage.storage()
         
         guard let photoData = self.image.jpegData(compressionQuality: 0.5) else {
-            print("Error: COuld not convert photo.image to Data")
+            print("Error: Could not convert photo.image to Data")
         }
         
         let uploadMetaData = StorageMetadata()
@@ -78,16 +78,29 @@ class Photo {
         
         uploadTask.observe(.success) { (snapshot) in
             print("Upload to Firebase Storage was successful")
-            let dataToSave: [String: Any] = self.dictionary
-            
-            let ref = db.collection("spots").document(spot.documentID).collection("photos").document(self.documentID)
-            ref.setData(dataToSave) { (error) in
+            storageRef.downloadURL { (url, error) in
                 guard error == nil else {
-                    print("Error: updating document \(error?.localizedDescription)")
+                    print("Error: Couldn't create a download url \(error!.localizedDescription)")
                     return completion(false)
                 }
-                print("Updated document: \(self.documentID) to \(spot.documentID)")
-                completion(true)
+                guard let url = url else {
+                    print("Error: Should not have happened")
+                    return completion(false)
+                }
+                self.photoURL = "\(url)"
+                
+                let dataToSave: [String: Any] = self.dictionary
+                
+                let ref = db.collection("spots").document(spot.documentID).collection("photos").document(self.documentID)
+                ref.setData(dataToSave) { (error) in
+                    guard error == nil else {
+                        print("Error: updating document \(error?.localizedDescription)")
+                        return completion(false)
+                    }
+                    print("Updated document: \(self.documentID) to \(spot.documentID)")
+                    completion(true)
+                }
+                
             }
             
         }
