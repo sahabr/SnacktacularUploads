@@ -73,6 +73,11 @@ class PhotoViewController: UIViewController {
         }
     }
     
+    func updateFromUserInterface(){
+        photo.description = descriptionTextView.text!
+        photo.image = photoImageView.image!
+    }
+    
     func addBorderToEditableObjects(){
         descriptionTextView.addBorder(width: 0.5, radius: 5.0, color: .black)
     }
@@ -94,7 +99,14 @@ class PhotoViewController: UIViewController {
     }
     
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
-        leaveViewController()
+        updateFromUserInterface()
+        photo.saveData(spot: spot) { (success) in
+            if success {
+                self.leaveViewController()
+            } else{
+                print("Cant't unwind segue because of photo saving error")
+            }
+        }
     }
     
 }
