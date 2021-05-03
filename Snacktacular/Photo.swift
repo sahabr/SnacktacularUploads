@@ -57,6 +57,7 @@ class Photo {
         
         guard let photoData = self.image.jpegData(compressionQuality: 0.5) else {
             print("Error: Could not convert photo.image to Data")
+            return
         }
         
         let uploadMetaData = StorageMetadata()
