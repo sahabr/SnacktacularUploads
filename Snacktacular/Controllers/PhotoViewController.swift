@@ -103,6 +103,13 @@ class PhotoViewController: UIViewController {
     }
     
     @IBAction func deleteButtonPressed(_ sender: UIBarButtonItem) {
+        photo.deleteData(spot: spot) { (success) in
+            if success {
+                self.leaveViewController()
+            }else{
+                print("Delete unsucessful")
+            }
+        }
     }
     
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
@@ -120,35 +127,5 @@ class PhotoViewController: UIViewController {
         }
     }
     
-}
-
-extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            imageView.image = editedImage
-        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            imageView.image = originalImage
-        }
-        dismiss(animated: true, completion: nil)
-    }
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
-
-    }
-    
-    func accessPhotoLibrary() {
-        imagePickerController.sourceType = .photoLibrary
-        present(imagePickerController, animated: true, completion: nil)
-
-    }
-    
-    func accessCamera(){
-        if UIImagePickerController.isSourceTypeAvailable(.camera){
-            present(imagePickerController, animated: true, completion: nil)
-        }else{
-            showAlert(title: "Camera Not Available", message: "There is no camera available on this device.")
-        }
-    }
 }
 
