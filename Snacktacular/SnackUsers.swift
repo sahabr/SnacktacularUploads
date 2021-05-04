@@ -1,15 +1,15 @@
 //
-//  Spots.swift
+//  SnackUsers.swift
 //  Snacktacular
 //
-//  Created by Brishti Saha on 4/4/21.
+//  Created by Brishti Saha on 5/3/21.
 //
 
 import Foundation
 import Firebase
 
-class Spots {
-    var spotArray: [Spot] = []
+class SnackUsers {
+    var userArray: [SnackUser] = []
     var db: Firestore!
     
     init() {
@@ -22,11 +22,11 @@ class Spots {
                 print("ERROR: adding the snapshot listener \(error!.localizedDescription)")
                 return completed()
             }
-            self.spotArray = []
+            self.userArray = []
             for document in querySnapShot!.documents {
-                let spot = Spot(dictionary: document.data())
-                spot.documentID = document.documentID
-                self.spotArray.append(spot)
+                let snackUser = SnackUser(dictionary: document.data())
+                snackUser.documentID = document.documentID
+                self.userArray.append(snackUser)
             }
             completed()
         }

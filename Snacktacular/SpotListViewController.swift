@@ -78,6 +78,8 @@ class SpotListViewController: UIViewController {
         
     }
     
+    @IBAction func usersButtonPressed(_ sender: UIBarButtonItem) {
+    }
 }
 
 extension SpotListViewController: UITableViewDelegate, UITableViewDataSource {

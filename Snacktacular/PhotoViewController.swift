@@ -59,7 +59,7 @@ class PhotoViewController: UIViewController {
         if photo.documentID == "" {
             addBorderToEditableObjects()
         }else {
-            if photo.photoUserID = Auth.auth().currentUser?.uid {
+            if photo.photoUserID == Auth.auth().currentUser?.uid {
                 self.navigationItem.leftItemsSupplementBackButton = false
                 saveBarButton.title = "Update"
                 addBorderToEditableObjects()
